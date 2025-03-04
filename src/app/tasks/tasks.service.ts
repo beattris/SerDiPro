@@ -5,7 +5,10 @@ import { Task } from './task.model';
   providedIn: 'root',
 })
 export class TasksService {
-  tasks = signal<Task[]>([]);
+  private tasks = signal<Task[]>([]);
+
+  // using  ".asReadonly()" TO makE it accessible outside the service, but not as a writable signal
+  allTasks = this.tasks.asReadonly();
 
   addTask(taskData: { title: string; description: string }) {
     const newTask: Task = {
